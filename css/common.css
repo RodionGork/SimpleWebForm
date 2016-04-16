@@ -1,0 +1,38 @@
+body {
+    color: #427;
+    background-color: #eee;
+    font-size: medium;
+}
+
+.container {
+    width: 980px;
+    border: 1px solid #bbb;
+    border-radius: 11px;
+    font-size: 140%;
+}
+
+.navbar {
+    background: #aac;
+}
+
+.navbar a {
+    font-size: 150%;
+    font-weight: bold;
+    color: #ffc;
+}
+
+.navbar a:hover {
+    color: #88c;
+}
+
+.full-width {
+    width: 100%
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
+
+.inlined {
+    display: inline-block;
+}

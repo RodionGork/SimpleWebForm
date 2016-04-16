@@ -1,0 +1,36 @@
+{
+    "title": "Некий Заголовок Формы",
+    "target": "submitted.html",
+    "rows": [
+        [
+            {"type": "label", "value": "Высота над горизонтом", "size": 4},
+            {"type": "text", "value": "5", "size": 2, "id": "height"},
+            {"type": "label", "value": "Видимость", "size": 4},
+            {"type": "text", "value": "300", "size": 2, "id": "visibility"}
+        ],
+        [
+            {"type": "label", "value": "Климатический режим", "size": 5},
+            {"type": "select", "id": "climate", "size": 7,
+                "value": [
+                    ["Умеренный", "normal"],
+                    ["Тропический", "hot"],
+                    ["Арктический", "cold"],
+                    ["Комнатный", "room"]
+                ]
+            }
+        ],
+        [
+            {"type": "check", "value": false, "size": 1, "id": "night"},
+            {"type": "label", "value": "Ночной режим", "size": 3},
+            {"type": "check", "value": true, "size": 1, "id": "rain"},
+            {"type": "label", "value": "Осадки", "size": 3},
+            {"type": "check", "value": false, "size": 1, "id": "overload"},
+            {"type": "label", "value": "Перегруз", "size": 3}
+        ],
+        [
+            {"type": "label", "value": " ", "size": 4},
+            {"type": "submit", "value": "Сохранить", "size": 4},
+            {"type": "label", "value": " ", "size": 4}
+        ]
+    ]
+}
