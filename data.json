@@ -1,0 +1,8 @@
+{
+    "height": 10,
+    "visibility": 1500,
+    "climate": "room",
+    "night": true,
+    "rain": false,
+    "overload": false
+}

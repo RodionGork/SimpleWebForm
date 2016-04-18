@@ -1,6 +1,7 @@
 {
     "title": "Некий Заголовок Формы",
     "target": "submitted.html",
+    "method": "json",
     "rows": [
         [
             {"type": "label", "value": "Высота над горизонтом", "size": 4},
@@ -28,9 +29,11 @@
             {"type": "label", "value": "Перегруз", "size": 3}
         ],
         [
-            {"type": "label", "value": " ", "size": 4},
+            {"type": "label", "value": " ", "size": 1},
             {"type": "submit", "value": "Сохранить", "size": 4},
-            {"type": "label", "value": " ", "size": 4}
+            {"type": "label", "value": " ", "size": 2},
+            {"type": "reset", "value": "Очистить", "size": 4},
+            {"type": "label", "value": " ", "size": 1}
         ]
     ]
 }
