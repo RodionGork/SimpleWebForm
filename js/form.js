@@ -74,6 +74,9 @@ $(function() {
         var input = $('<input type="text"/>');
         input.addClass('form-control');
         input.attr('value', elem.value).attr('name', elem.id);
+        if (elem.readonly) {
+            input.attr('disabled', 'true');
+        }
         span.append(input);
         formElems[elem.id] = {"type": "text"};
     }
