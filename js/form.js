@@ -104,7 +104,15 @@ $(function() {
     }
     
     function applySubmit(span, elem) {
-        var input = $('<input type="submit"/>');
+        var input;
+        if (typeof(elem.target) == 'undefined') {
+            input = $('<input type="submit"/>');
+        } else {
+            input = $('<input type="button"/>');
+            input.click(function() {
+                sendValues(elem.target);
+            });
+        }
         input.addClass('btn').addClass('btn-default').addClass('form-control');
         input.attr('value', elem.value);
         span.append(input);
@@ -161,7 +169,7 @@ $(function() {
             type: 'post',
             data: JSON.stringify(json),
             dataType: 'text',
-            success: function() {alert('Данные сохранены');},
+            success: function(data) {alert(data);},
             error: function(req, status) {
                 alert('Ошибка при сохранении данных:\n' + status);}
         });
