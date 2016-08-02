@@ -4,7 +4,12 @@ $(function() {
     var initData;
     
     loadForm();
-
+    
+    if (typeof(formUpdateName) != 'undefined') {
+        var interval = typeof(formUpdateInterval) == 'number' ? formUpdateInterval : 5;
+        setInterval(onUpdate, interval * 1000);
+    }
+    
     function loadForm() {
         var json = loadJson(formConfigName);
         mainForm = $('#main-form');
@@ -128,12 +133,16 @@ $(function() {
         });
     }
 
-    function setupValues(data) {
+    function setupValues(data, disabledOnly) {
+        disabledOnly = typeof(disabledOnly) === 'boolean' && disabledOnly;
         for (id in data) {
             if (typeof(formElems[id]) != 'object') {
                 alert('No form element found for id: ' + id);
             }
             var elem = $('[name=' + id +']');
+            if (disabledOnly && !elem.is('[disabled]')) {
+                continue;
+            }
             switch (formElems[id].type) {
                 case 'text':
                 case 'select':
@@ -181,6 +190,11 @@ $(function() {
         }
         sendValues(mainForm.attr('action'));
         return false;
+    }
+    
+    function onUpdate() {
+        var data = loadJson(formUpdateName);
+        setupValues(data, true);
     }
 });
 
