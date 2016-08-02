@@ -2,5 +2,5 @@
     ["Google", "http://www.google.com"],
     ["Yandex", "http://www.yandex.ru"],
     ["Form", "./index.html"],
-    ["Help!", "./help.html"]
+    ["Help!", "https://github.com/rodiongork/SimpleWebForm"]
 ]
