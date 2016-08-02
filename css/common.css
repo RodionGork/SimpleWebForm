@@ -25,6 +25,29 @@ body {
     color: #88c;
 }
 
+.nav-tabs, .nav-pills {
+    margin-top: 5px;
+}
+
+.nav-pills>li>a:hover {
+    color: #037 !important;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #bbb;
+}
+
+.nav-tabs>li.active>a {
+    border: 1px solid #bbb;
+    border-bottom-color: #eee;
+    background: transparent;
+}
+
+.nav-tabs>li>a:hover {
+    border-bottom-color: #bbb;
+    background: #fff;
+}
+
 .full-width {
     width: 100%
 }

@@ -40,5 +40,10 @@
             {"type": "reset", "value": "Очистить", "size": 4},
             {"type": "label", "value": " ", "size": 4}
         ]
-    ]
+    ],
+    "menu":{
+        "tabs": true,
+        "selected": 2,
+        "items": "./menu.json"
+    }
 }

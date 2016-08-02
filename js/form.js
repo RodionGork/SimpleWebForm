@@ -13,6 +13,7 @@ $(function() {
     function loadForm() {
         var json = loadJson(formConfigName);
         mainForm = $('#main-form');
+        createMenu(json)
         applyAttributes(json);
         json.rows.forEach(applyRow);
         initData = loadJson(formInitName);
@@ -131,6 +132,34 @@ $(function() {
         input.click(function() {
             setupValues(initData);
         });
+    }
+    
+    function createMenu(json) {
+        if (typeof(json.menu) === 'undefined') {
+            return;
+        }
+        var menu = json.menu;
+        var asTabs = typeof(menu.tabs) === 'boolean' && menu.tabs;
+        var selected = typeof(menu.selected) === 'number' ? menu.selected : 0;
+        var ul = $('<ul class="nav"></ul>').addClass(asTabs ? 'nav-tabs' : 'nav-pills');
+        var items = assignOrLoad(menu.items);
+        for (var i in items) {
+            var item = items[i];
+            var a = $('<a></a>').text(item[0]).attr('href', item[1]);
+            var li = $('<li></li>').append(a);
+            if (selected == i) {
+                li.addClass('active');
+            }
+            ul.append(li);
+        }
+        mainForm.before($('<div></div>').append(ul));
+    }
+    
+    function assignOrLoad(jsonOrUrl) {
+        if (typeof(jsonOrUrl) !== 'string') {
+            return jsonOrUrl;
+        }
+        return loadJson(jsonOrUrl);
     }
 
     function setupValues(data, disabledOnly) {
