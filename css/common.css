@@ -59,3 +59,12 @@ body {
 .inlined {
     display: inline-block;
 }
+
+.table-hover tr:hover td {
+    background: #ddf !important;
+}
+
+.table-hover tr.active td {
+    background: #ff0 !important;
+}
+

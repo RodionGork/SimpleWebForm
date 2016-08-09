@@ -29,10 +29,15 @@
             {"type": "label", "value": "Перегруз", "size": 3}
         ],
         [
+            {"type": "table", "id": "journal", "size": 12}
+        ],
+        [
             {"type": "label", "value": " ", "size": 1},
-            {"type": "submit", "value": "Сохранить", "size": 4},
+            {"type": "submit", "value": "Сохранить", "size": 2},
             {"type": "label", "value": " ", "size": 2},
-            {"type": "submit", "value": "Переслать", "size": 4, "target": "target2.html"},
+            {"type": "submit", "value": "Переслать", "size": 2, "target": "target2.html"},
+            {"type": "label", "value": " ", "size": 2},
+            {"type": "submit", "value": "Из Таблицы", "size": 2, "target": "target2.html", "fields": ["journal"]},
             {"type": "label", "value": " ", "size": 1}
         ],
         [

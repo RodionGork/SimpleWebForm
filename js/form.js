@@ -66,6 +66,9 @@ $(function() {
             case 'reset':
                 applyReset(span, elem);
                 break;
+            case 'table':
+                applyTable(span, elem);
+                break;
             default:
                 span.html('&nbsp;');
         }
@@ -116,7 +119,7 @@ $(function() {
         } else {
             input = $('<input type="button"/>');
             input.click(function() {
-                sendValues(elem.target);
+                sendValues(elem.target, elem.fields);
             });
         }
         input.addClass('btn').addClass('btn-default').addClass('form-control');
@@ -132,6 +135,19 @@ $(function() {
         input.click(function() {
             setupValues(initData);
         });
+    }
+    
+    function applyTable(span, elem) {
+        var table = $('<table><thead></thead><tbody></tbody></table>');
+        table.addClass('table').addClass('table-striped')
+                .addClass('table-bordered').addClass('table-hover');
+        table.attr('name', elem.id);
+        span.append(table);
+        formElems[elem.id] = {"type": "table"};
+    }
+    
+    function tableRowClicked() {
+        $(this).addClass('active').siblings().removeClass('active');
     }
     
     function createMenu(json) {
@@ -180,13 +196,37 @@ $(function() {
                 case 'check':
                     elem.prop('checked', data[id]);
                     break;
+                case 'table':
+                    fillTable(elem, data[id]);
+                    break;
             }
         }
     }
     
-    function collectValues() {
+    function fillTable(elem, data) {
+        var head = elem.find('thead').empty();
+        var tr = $('<tr></tr>').appendTo(head);
+        for (var i in data.head) {
+            $('<th></th>').text(data.head[i]).appendTo(tr);
+        }
+        var body = elem.find('tbody').empty();
+        for (var j in data.body) {
+            var row = data.body[j];
+            var tr = $('<tr></tr>').appendTo(body);
+            for (var i in row) {
+                $('<td></td>').text(row[i]).appendTo(tr);
+            }
+            tr.click(tableRowClicked);
+        }
+    }
+    
+    function collectValues(fields) {
+        if (typeof(fields) == 'undefined') {
+            fields = Object.keys(formElems);
+        }
         var data = {};
-        for (id in formElems) {
+        for (var i in fields) {
+            var id = fields[i];
             var elem = $('[name=' + id +']');
             switch (formElems[id].type) {
                 case 'text':
@@ -195,13 +235,29 @@ $(function() {
                     break;
                 case 'check':
                     data[id] = !!elem.prop('checked');
+                    break;
+                case 'table':
+                    data[id] = collectFromTable(elem);
             }
         }
+        console.log(data);
         return data;
     }
     
-    function sendValues(url) {
-        var json = collectValues();
+    function collectFromTable(table) {
+        var res = [];
+        table.find('tr.active').each(function(j, tr) {
+            var row = [];
+            $(tr).find('td').each(function(i, td) {
+                row.push($(td).text());
+            });
+            res.push(row);
+        });
+        return res;
+    }
+    
+    function sendValues(url, fields) {
+        var json = collectValues(fields);
         $.ajax({
             url: url,
             type: 'post',

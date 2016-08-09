@@ -4,5 +4,14 @@
     "climate": "room",
     "night": true,
     "rain": false,
-    "overload": false
+    "overload": false,
+    "journal": {
+        "head": ["Timestamp", "Severity", "Message"],
+        "body": [
+            ["2016-05-13 08:54:21.050", "INFO", "Loading configs"],
+            ["2016-05-13 09:01:35.410", "INFO", "Database connection established"],
+            ["2016-05-13 09:03:00.245", "WARN", "Storage configuration have changed"],
+            ["2016-05-13 09:17:52.808", "INFO", "User records are being updated"]
+        ]
+    }
 }
