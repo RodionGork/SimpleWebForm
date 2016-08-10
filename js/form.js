@@ -16,8 +16,7 @@ $(function() {
         createMenu(json)
         applyAttributes(json);
         json.rows.forEach(applyRow);
-        initData = loadJson(formInitName);
-        setupValues(initData);
+        onReload();
     }
 
     function loadJson(url) {
@@ -105,9 +104,7 @@ $(function() {
         var input = $('<select><select/>');
         input.addClass('form-control');
         input.attr('name', elem.id);
-        elem.value.forEach(function(option) {
-            $('<option/>').text(option[0]).attr('value', option[1]).appendTo(input);
-        });
+        fillSelect(input, elem.value);
         span.append(input);
         formElems[elem.id] = {"type": "select"};
     }
@@ -133,7 +130,7 @@ $(function() {
         input.attr('value', elem.value);
         span.append(input);
         input.click(function() {
-            setupValues(initData);
+            setupValues(initData, false);
         });
     }
     
@@ -179,7 +176,6 @@ $(function() {
     }
 
     function setupValues(data, disabledOnly) {
-        disabledOnly = typeof(disabledOnly) === 'boolean' && disabledOnly;
         for (id in data) {
             if (typeof(formElems[id]) != 'object') {
                 alert('No form element found for id: ' + id);
@@ -190,8 +186,14 @@ $(function() {
             }
             switch (formElems[id].type) {
                 case 'text':
-                case 'select':
                     elem.val(data[id]);
+                    break;
+                case 'select':
+                    if (typeof(data[id]) !== 'object') {
+                        elem.val(data[id]);
+                    } else {
+                        fillSelect(elem, data[id]);
+                    }
                     break;
                 case 'check':
                     elem.prop('checked', data[id]);
@@ -217,6 +219,20 @@ $(function() {
                 $('<td></td>').text(row[i]).appendTo(tr);
             }
             tr.click(tableRowClicked);
+        }
+    }
+    
+    function fillSelect(elem, data) {
+        elem.empty();
+        var selected = null;
+        data.forEach(function(option) {
+            var o = $('<option/>').text(option[0]).attr('value', option[1]).appendTo(elem);
+            if (option.length > 2 && option[2]) {
+                selected = option[1];
+            }
+        });
+        if (selected) {
+            elem.val(selected);
         }
     }
     
@@ -263,7 +279,10 @@ $(function() {
             type: 'post',
             data: JSON.stringify(json),
             dataType: 'text',
-            success: function(data) {alert(data);},
+            success: function(data) {
+                alert(data);
+                setTimeout(function() {onReload();}, 50);
+            },
             error: function(req, status) {
                 alert('Ошибка при сохранении данных:\n' + status);}
         });
@@ -281,6 +300,12 @@ $(function() {
         var data = loadJson(formUpdateName);
         setupValues(data, true);
     }
+    
+    function onReload() {
+        initData = loadJson(formInitName);
+        setupValues(initData, false);
+    }
+    
 });
 
 

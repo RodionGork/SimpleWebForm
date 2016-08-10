@@ -1,7 +1,11 @@
 {
     "height": 10,
     "visibility": 1500,
-    "climate": "room",
+    "climate": [
+        ["Tropic", "hot"],
+        ["Arctic", "cold", true],
+        ["Indoors", "room"]
+    ],
     "night": true,
     "rain": false,
     "overload": false,
