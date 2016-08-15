@@ -19,12 +19,16 @@ $(function() {
         onReload();
     }
 
-    function loadJson(url) {
-        var res = $.ajax(url, {
-            async: false,
-            dataType: 'json'
-        });
-        return JSON.parse(res.responseText);
+    function loadJson(url, callback) {
+        var opts = {dataType: 'json'};
+        if (typeof(callback) == 'function') {
+            opts.success = callback;
+            opts.async = true;
+        } else {
+            opts.async = false;
+        }
+        var res = $.ajax(url, opts);
+        return opts.async ? true : JSON.parse(res.responseText);
     }
 
     function applyAttributes(json) {
@@ -297,8 +301,9 @@ $(function() {
     }
     
     function onUpdate() {
-        var data = loadJson(formUpdateName);
-        setupValues(data, true);
+        var data = loadJson(formUpdateName, function(data) {
+            setupValues(data, true);
+        });
     }
     
     function onReload() {
