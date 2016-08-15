@@ -20,7 +20,7 @@ $(function() {
     }
 
     function loadJson(url, callback) {
-        var opts = {dataType: 'json'};
+        var opts = {dataType: 'json', cache: false};
         if (typeof(callback) == 'function') {
             opts.success = callback;
             opts.async = true;
